@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
 
     MainScreenBinding mainScreenBinding;
     MovieItemBinding movieItemBinding;
-    //    LifecycleOwner lifecycleOwner = this;
     RecyclerView recyclerView;
     MovieAdapter movieAdapter;
     MoviesViewModel moviesViewModel;
@@ -49,14 +48,13 @@ public class MainActivity extends AppCompatActivity {
         moviesViewModel.getMovies().observe(this, movieDataModels -> {
             movieAdapter.updateMovieList(movieDataModels);
         });
-
+         // sort chips components
         mainScreenBinding.yearFilter.setOnClickListener(v -> {
             List<MovieDataModel> sortedMovies = sortMoviesByYear(movieAdapter.getMovieList());
             movieAdapter.updateMovieList(sortedMovies);
             linearLayoutManager.scrollToPositionWithOffset(0, 0);
             mainScreenBinding.yearFilter.setChecked(true);
             mainScreenBinding.rateFilter.setChecked(false);
-//            updateFiltersIndicators();
         });
         mainScreenBinding.rateFilter.setOnClickListener(v -> {
                     List<MovieDataModel> sortedMovies = sortMoviesByRate(movieAdapter.getMovieList());
@@ -64,17 +62,26 @@ public class MainActivity extends AppCompatActivity {
                     linearLayoutManager.scrollToPositionWithOffset(0, 0);
                     mainScreenBinding.yearFilter.setChecked(false);
                     mainScreenBinding.rateFilter.setChecked(true);
-//                    updateFiltersIndicators();
                 }
         );
     }
 
+    /**
+     * this method sort the movies by year
+     * @param movies
+     * @return
+     */
     List<MovieDataModel> sortMoviesByYear(List<MovieDataModel> movies) {
 
         movies.sort(Comparator.comparingInt(MovieDataModel::getYear));
         return movies;
     }
 
+    /**
+     * this method sort the movies by Rate
+     * @param movies
+     * @return
+     */
     List<MovieDataModel> sortMoviesByRate(List<MovieDataModel> movies) {
         movies.sort((movie1, movie2) -> {
             int rate1 = (int) (Double.parseDouble(movie1.getImdbRating()) * 100);
@@ -84,16 +91,7 @@ public class MainActivity extends AppCompatActivity {
         return movies;
     }
 
-//    void updateFiltersIndicators() {
-//
-//        if(mainScreenBinding.yearFilter.isChecked()){
-//            Toast.makeText(this, "year checked", Toast.LENGTH_LONG);
-//        }
-//        else if (mainScreenBinding.rateFilter.isChecked()){
-//            Toast.makeText(this, "rate checked", Toast.LENGTH_LONG);
-//        }
-//
-//    }
+
 
 }
 

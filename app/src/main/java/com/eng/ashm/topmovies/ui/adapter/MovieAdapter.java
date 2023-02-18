@@ -41,13 +41,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieViewHolder> {
         holder.movieItemBinding.filmTitle.setText(movies.get(position).getTitle()+"");
         holder.movieItemBinding.filmYear.setText(movies.get(position).getYear()+"");
         holder.movieItemBinding.rate.setText(movies.get(position).getImdbRating()+"/10 IMDb");
-//        holder.movieItemBinding.imgContainer.measure(0, 0);
         Picasso.get().load(movies.get(position).getImgSource())
                 .fit()
                 .placeholder(R.drawable.notfoundimage)
                 .into(holder.movieItemBinding.filmImg);
-//                .resize( holder.movieItemBinding.imgContainer.getMeasuredWidth(),
-//                        holder.movieItemBinding.imgContainer.getMeasuredHeight())
 
     }
 
